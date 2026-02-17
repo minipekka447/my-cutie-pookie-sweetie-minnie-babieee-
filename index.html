@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Koalam 🎂</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: "Trebuchet MS", Arial, sans-serif;
+      background: linear-gradient(135deg, #fde2e4, #e2f0ff);
+      overflow-x: hidden;
+      text-align: center;
+      color: #333;
+    }
+
+    .container {
+      padding: 25px;
+      max-width: 650px;
+      margin: auto;
+      position: relative;
+      z-index: 5;
+    }
+
+    h1 {
+      font-size: 2.4rem;
+      margin-top: 20px;
+      color: #ff4081;
+      text-shadow: 1px 1px 10px rgba(0,0,0,0.1);
+      animation: pop 1s ease;
+    }
+
+    @keyframes pop {
+      0% { transform: scale(0.7); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .subtitle {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      margin-bottom: 20px;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.90);
+      border-radius: 25px;
+      padding: 20px;
+      box-shadow: 0px 12px 35px rgba(0,0,0,0.15);
+      margin-top: 20px;
+      transition: 0.5s;
+      animation: fadeIn 0.9s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    img {
+      width: 100%;
+      border-radius: 20px;
+      margin-top: 15px;
+      box-shadow: 0px 6px 20px rgba(0,0,0,0.2);
+      animation: imgFade 0.8s ease;
+    }
+
+    @keyframes imgFade {
+      from { opacity: 0; transform: scale(0.97); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .text {
+      margin-top: 10px;
+      font-size: 1.2rem;
+      line-height: 1.65;
+      color: #444;
+      min-height: 90px;
+      font-weight: 500;
+    }
+
+    button {
+      margin-top: 18px;
+      padding: 14px 22px;
+      border: none;
+      border-radius: 20px;
+      background: #ff4081;
+      color: white;
+      font-size: 1.05rem;
+      cursor: pointer;
+      box-shadow: 0px 6px 18px rgba(0,0,0,0.2);
+      transition: 0.25s;
+    }
+
+    button:hover {
+      transform: scale(1.06);
+      background: #e91e63;
+    }
+
+    .musicBtn {
+      background: #4fc3f7;
+      margin-bottom: 10px;
+    }
+
+    .musicBtn:hover {
+      background: #29b6f6;
+    }
+
+    .footer {
+      margin-top: 25px;
+      font-size: 0.95rem;
+      opacity: 0.75;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(12px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    /* floating hearts */
+    .heart {
+      position: fixed;
+      bottom: -20px;
+      font-size: 22px;
+      opacity: 0.7;
+      animation: floatUp 6s linear infinite;
+      z-index: 1;
+    }
+
+    @keyframes floatUp {
+      from { transform: translateY(0) rotate(0deg); opacity: 0.9; }
+      to { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+    }
+
+    /* balloons */
+    .balloon {
+      position: fixed;
+      bottom: -120px;
+      width: 50px;
+      height: 65px;
+      background: rgba(255, 64, 129, 0.35);
+      border-radius: 50% 50% 50% 50%;
+      animation: balloonUp 12s linear infinite;
+      z-index: 0;
+      filter: blur(0.2px);
+    }
+
+    .balloon::after {
+      content: "";
+      position: absolute;
+      bottom: -25px;
+      left: 50%;
+      width: 2px;
+      height: 25px;
+      background: rgba(0,0,0,0.15);
+      transform: translateX(-50%);
+    }
+
+    @keyframes balloonUp {
+      from { transform: translateY(0); opacity: 0.8; }
+      to { transform: translateY(-120vh); opacity: 0; }
+    }
+
+    /* confetti */
+    .confetti {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      top: -10px;
+      animation: fall 3.5s linear infinite;
+      opacity: 0.9;
+      z-index: 20;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(120vh) rotate(720deg);
+      }
+    }
+
+    /* final message glow */
+    .finalText {
+      font-size: 1.45rem;
+      font-weight: bold;
+      color: #e91e63;
+      text-shadow: 0px 0px 10px rgba(233,30,99,0.35);
+      animation: glow 2s infinite alternate;
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0px 0px 8px rgba(233,30,99,0.25); }
+      to { text-shadow: 0px 0px 20px rgba(233,30,99,0.55); }
+    }
+
+    .fadeOut {
+      animation: fadeOutAnim 0.6s ease;
+    }
+
+    @keyframes fadeOutAnim {
+      from { opacity: 1; transform: scale(1); }
+      to { opacity: 0; transform: scale(0.98); }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <h1>Koalam 🎂</h1>
+    <div class="subtitle">Bu sayfa sadece doğum günü kralları için 😼💗</div>
+
+    <button class="musicBtn" onclick="startMusic()">🎶 Müziği Aç</button>
+
+    <div class="card" id="photoCard">
+      <div class="text" id="textArea"></div>
+      <button id="nextBtn" onclick="nextPhoto()">Devam et 👉🏻</button>
+    </div>
+
+    <div class="footer">Betüş’ten Koalam’a özel 💗</div>
+  </div>
+
+  <audio id="bgMusic" loop>
+    <source src="music.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    let index = -1;
+    let typingInterval;
+
+    const photos = [
+      { src: "foto1.png", text: "Bugün 20 yaşına giren o kişiye... yani çocukluğumun bay gıcığına küçük bir sürpriz 😭💞" },
+      { src: "foto2.png", text: "Küçükken senden nefret ediyordum… yalan değil 😭 Ama büyüyünce anladım… sen benim çocukluğumun en büyük parçasıymışsın." },
+      { src: "foto3.png", text: "Bazen beni sinirlendirirdin… bazen güldürürdün… ama en çok da ‘benim abim’ olurdun. Ve bu bana yetti 🥺" },
+      { src: "foto4.png", text: "Şu fotoğraflara bakınca insanın içi doluyor... Çünkü bazı insanlar büyüse bile çocukluğun kokusu onlarda kalıyor." },
+      { src: "foto5.png", text: "Sherlock Holmes’a fena benziyorsun demiştim ya… hâlâ diyorum 😭 ama bu kadar havalı olmasan da olurdu, yine de abim olurdun 😼💗" },
+      { src: "foto6.png", text: "Gerekirse beni savunurdun... (çok nadiren de olsa) ama o nadir anları bile ben unutmadım Koalam." },
+      { src: "foto7.png", text: "Bazen uzak oluyorsun… bazen sessiz… ama ben seni hep aynı yerden hatırlıyorum: çocukluğumdan." },
+      { src: "foto8.png", text: "İnsan büyüyünce bazı şeyleri daha iyi anlıyor… mesela ‘abi’ kelimesinin ne kadar büyük bir şey olduğunu." },
+      { src: "foto9.png", text: "Bu fotoğrafta gülüşün var ya… işte o gülüş çocukluğumun en güzel hatıralarından biri olmuş." },
+      { src: "foto10.png", text: "Ben seni çok özledim Koalam… hem de öyle böyle değil 😭 Antalya’da olsan bile, kalbimde hep yanımdasın." }
+    ];
+
+    function typeWriter(text, element, speed = 35) {
+      clearInterval(typingInterval);
+      element.innerHTML = "";
+      let i = 0;
+
+      typingInterval = setInterval(() => {
+        element.innerHTML += text.charAt(i);
+        i++;
+        if (i >= text.length) clearInterval(typingInterval);
+      }, speed);
+    }
+
+    function nextPhoto() {
+      index++;
+
+      const card = document.getElementById("photoCard");
+
+      card.classList.add("fadeOut");
+
+      setTimeout(() => {
+        card.classList.remove("fadeOut");
+
+        if (index < photos.length) {
+          card.innerHTML = `
+            <div class="text" id="dynamicText"></div>
+            <img src="${photos[index].src}" alt="fotoğraf">
+            <button onclick="nextPhoto()">Bir tane daha 👉🏻</button>
+          `;
+
+          const textArea = document.getElementById("dynamicText");
+          typeWriter(photos[index].text, textArea, 32);
+
+        } else {
+          card.innerHTML = `
+            <div class="finalText" id="finalMessage"></div>
+            <br>
+            <button onclick="confetti()">🎉 Kutlayalım!</button>
+          `;
+
+          const finalMsg = document.getElementById("finalMessage");
+          typeWriter("İYİ Kİ DOĞDUN KOALAM 🎂💗\\n\\nSen benim çocukluğumsun...\\nVe ben seni gerçekten çok seviyorum 🥺", finalMsg, 40);
+
+          setTimeout(() => {
+            let extra = document.createElement("div");
+            extra.className = "text";
+            extra.style.marginTop = "15px";
+            extra.innerHTML = "Bu sayfa belki küçük… ama sevgim büyük 😭💞";
+            card.appendChild(extra);
+          }, 4500);
+        }
+
+      }, 550);
+    }
+
+    function startMusic() {
+      const music = document.getElementById("bgMusic");
+      music.play();
+      alert("Müzik açıldı 🎶💗");
+    }
+
+    function createHearts() {
+      setInterval(() => {
+        let heart = document.createElement("div");
+        heart.className = "heart";
+        heart.innerHTML = "💗";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration = (4 + Math.random() * 3) + "s";
+        heart.style.fontSize = (16 + Math.random() * 18) + "px";
+        document.body.appendChild(heart);
+
+        setTimeout(() => heart.remove(), 7000);
+      }, 500);
+    }
+
+    function createBalloons() {
+      setInterval(() => {
+        let balloon = document.createElement("div");
+        balloon.className = "balloon";
+        balloon.style.left = Math.random() * 100 + "vw";
+        balloon.style.background = `rgba(${150+Math.random()*100}, ${100+Math.random()*120}, ${180+Math.random()*60}, 0.35)`;
+        balloon.style.animationDuration = (9 + Math.random() * 5) + "s";
+        balloon.style.transform = `scale(${0.7 + Math.random() * 0.8})`;
+        document.body.appendChild(balloon);
+
+        setTimeout(() => balloon.remove(), 13000);
+      }, 1300);
+    }
+
+    function confetti() {
+      for (let i = 0; i < 140; i++) {
+        let conf = document.createElement("div");
+        conf.className = "confetti";
+        conf.style.left = Math.random() * 100 + "vw";
+        conf.style.background = `hsl(${Math.random()*360}, 85%, 60%)`;
+        conf.style.animationDuration = (2 + Math.random() * 2.5) + "s";
+        conf.style.width = (6 + Math.random() * 10) + "px";
+        conf.style.height = conf.style.width;
+        document.body.appendChild(conf);
+
+        setTimeout(() => conf.remove(), 4500);
+      }
+
+      // Extra big final popup message
+      setTimeout(() => {
+        alert("KOALAMMM 🎂💗 İYİ Kİ DOĞDUN! 🎉");
+      }, 700);
+    }
+
+    // Start background effects
+    createHearts();
+    createBalloons();
+
+    // First typing
+    window.onload = () => {
+      const startText = document.getElementById("textArea");
+      typeWriter("Koalam... bunu okumadan çıkmak yok 😼🎂💗\\n\\nHazırsan tıkla 👉🏻", startText, 40);
+    }
+  </script>
+
+</body>
+</html>
